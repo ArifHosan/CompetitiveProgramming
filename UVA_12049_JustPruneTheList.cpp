@@ -2,7 +2,6 @@
 *
 *			Arif Hosan
 *American International University Bangladesh
-*		hosan.arif0@gmail.com
 *
 **/
 #include<bits/stdc++.h>
@@ -10,13 +9,12 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
-#define SFI(_i) scanf("%d",&_i)
-
+#define SFI(_kk) scanf("%d",&_kk)
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
@@ -43,30 +41,29 @@ void primeSieve() {
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
+    int i,j,x,N,M,T;
     SFI(T);
-    cin.ignore();
     while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+        SFII(N,M);
+        vector<int>v1,v2;
+        FOR(i,0,N) {
+            SFI(x);
+            v1.push_back(x);
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
+        FOR(i,0,M) {
+            SFI(x);
+            v2.push_back(x);
         }
-        T.clear();
-
+        i=0;
+        while(i<v2.size()) {
+            vector<int>::iterator pos=find(v1.begin(),v1.end(),v2[i]);
+            if(pos!=v1.end()) {
+                v1.erase(pos);
+                v2.erase(v2.begin()+i);
+            }
+            else i++;
+        }
+        PFIL(v1.size()+v2.size());
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

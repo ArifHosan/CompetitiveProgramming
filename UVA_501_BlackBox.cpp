@@ -2,7 +2,6 @@
 *
 *			Arif Hosan
 *American International University Bangladesh
-*		hosan.arif0@gmail.com
 *
 **/
 #include<bits/stdc++.h>
@@ -10,13 +9,12 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
 #define SFI(_i) scanf("%d",&_i)
-
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
@@ -43,30 +41,38 @@ void primeSieve() {
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
+    int i,j,x,N,M,T,k;
     SFI(T);
-    cin.ignore();
     while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+        vector<int>V;
+        multiset<int>MS;
+        SFII(N,M);
+        FOR(i,0,N) {
+            SFI(x);
+            V.push_back(x);
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
+        j=0;
+        //MS.insert(V[0]); V.erase(V.begin());
+        multiset<int>::iterator it=MS.begin();
+        FOR(i,0,M) {
+            SFI(x);
+            while(MS.size()<x) {
+                MS.insert(V[0]);
+                if(V[0]<*it) {it--;
+                    //cout<<V[0]<<' '<<*it<<' ';}
+                }
+                V.erase(V.begin());
+            }
+            //NL;
+            //multiset<int>::iterator it=MS.begin();
+            //FOR(k,0,j-1) it++;
+            //advance(it,j-1);
+            it++;
+            if(j==0) it=MS.begin();
+            PFIL(*it);
+            j++;
         }
-        T.clear();
-
+        if(T) NL;
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

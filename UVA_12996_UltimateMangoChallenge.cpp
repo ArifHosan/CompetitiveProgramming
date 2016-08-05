@@ -10,7 +10,7 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
@@ -42,31 +42,28 @@ void primeSieve() {
 */
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
+    RW;
+    int T,N,L,i,j,x;
+    vector<int>V1,V2;
     SFI(T);
-    cin.ignore();
     while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+        SFII(N,L);
+        V1.clear();
+        int sum=0;
+        FOR(i,0,N) {
+            SFI(x);
+            sum+=x;
+            V1.push_back(x);
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
+        bool flag=true;
+        if(sum>L) flag=!flag;
+        FOR(i,0,N) {
+            SFI(x);
+            if(V1[i]>x) flag=false;
         }
-        T.clear();
-
+        CP();
+        if(!flag) printf("No\n");
+        else printf("Yes\n");
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

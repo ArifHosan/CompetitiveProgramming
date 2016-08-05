@@ -2,7 +2,6 @@
 *
 *			Arif Hosan
 *American International University Bangladesh
-*		hosan.arif0@gmail.com
 *
 **/
 #include<bits/stdc++.h>
@@ -10,13 +9,12 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
 #define SFI(_i) scanf("%d",&_i)
-
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
@@ -40,33 +38,36 @@ void primeSieve() {
     }
 }
 */
+long long  Stoi(string s) {
+    stringstream ss;
+    ss<<s;
+    long long i;
+    ss>>i;
+    return i;
+}
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
+    string S,S2;
+    long long int N,X;
+    while(cin>>S) {
+        //N=stoi(S);
+        sort(S.begin(),S.end());
+        S2=S;
         //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
+        int i=0;
+        if(S[0]=='0') {
+            while(S[i]=='0') i++;
+            swap(S[i],S[0]);
         }
-        T.clear();
-
+        //cout<<S<<endl;
+        N=Stoi(S);
+        reverse(S2.begin(),S2.end());
+        //cout<<S2<<endl;
+        //NL;
+        X=Stoi(S2);
+        long long int R=X-N;
+        printf("%lld - %lld = %lld = 9 * %lld\n",X,N,R,R/9);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

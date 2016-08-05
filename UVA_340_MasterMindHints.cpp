@@ -10,13 +10,12 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
 #define SFI(_i) scanf("%d",&_i)
-
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
@@ -43,30 +42,42 @@ void primeSieve() {
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    int N;
+    while(SFI(N)==1 && N) {
+        vector<int>C,G;
+        map<int,int>M;
+        int i,j,x;
+        FOR(i,0,N) {
+            SFI(x);
+            C.push_back(x);
+            M[x]++;
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
+        printf("Game %d:\n",caseno++);
+        while(1) {
+            FOR(i,0,N) {
+                SFI(x);
+                G.push_back(x);
+            }
+            if(count(G.begin(),G.end(),0)==N) break;
+            int sg=0,wg=0;
+            map<int,int>Mx=M;
+            //for(auto it:Mx) cout<<it.first<<' '<<it.second<<endl;
+            FOR(i,0,N) {
+                if(C[i]==G[i]) {
+                    sg++;
+                    Mx[C[i]]--;
+                    G[i]=-1;
+                }
+            }
+            //for(auto it:Mx) cout<<it.first<<' '<<it.second<<endl;
+            FOR(i,0,N) {
+                if(Mx[G[i]]>0)
+                    wg++;
+                    Mx[G[i]]--;
+            }
+            G.clear();
+            printf("    (%d,%d)\n",sg,wg);
         }
-        T.clear();
-
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

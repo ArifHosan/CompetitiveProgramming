@@ -40,33 +40,46 @@ void primeSieve() {
     }
 }
 */
+vector<int> A[6];
+
+void Rec(string S) {
+    if(S.size()==9) {
+        int x=S[S.size()-1]-48;
+        if(count(A[x].begin(),A[x].end(),S[0]-48)>0) {
+            cout<<S;
+            NL;
+        }
+        return;
+    }
+    int i;
+    int x=S[S.size()-1]-48;
+    FOR(i,0,A[x].size()) {
+        Rec(S+(char)(A[x][i]+48));
+    }
+}
+
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
+    A[0].push_back(0);
+    A[1].push_back(2);
+    A[1].push_back(3);
+    A[1].push_back(5);
+    A[2].push_back(1);
+    A[2].push_back(3);
+    A[2].push_back(5);
+    A[3].push_back(1);
+    A[3].push_back(2);
+    A[3].push_back(4);
+    A[3].push_back(5);
+    A[4].push_back(3);
+    A[4].push_back(5);
+    A[5].push_back(1);
+    A[5].push_back(2);
+    A[5].push_back(3);
+    A[5].push_back(4);
 
-    }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
+    string S="1";
+    Rec(S);
+
 	return 0;
 }

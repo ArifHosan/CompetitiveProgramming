@@ -40,33 +40,23 @@ void primeSieve() {
     }
 }
 */
+int coin[]={1,5,10,25,50};
+int dp[5][7490];
+int N;
+int rec(int i,int make) {
+    if(make==0) return 1;
+    if(i>4) return 0;
+    if(dp[i][make]!=-1) return dp[i][make];
+
+    int r1=0,r2=0;
+    if(make-coin[i]>=0) r1=rec(i,make-coin[i]);
+    r2=rec(i+1,make);
+    return dp[i][make]=r1+r2;
+}
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
-    }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
+    MEM(dp,-1);
+    while(SFI(N)==1) PFIL(rec(0,N));
 	return 0;
 }

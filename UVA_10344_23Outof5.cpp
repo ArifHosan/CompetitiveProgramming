@@ -40,33 +40,26 @@ void primeSieve() {
     }
 }
 */
+vector<int>V;
+bool rec(int i,int sum) {
+    if(i==V.size() && sum==23) return 1;
+    else return 0;
+    //if(sum==23 || sum==-23) return 1;
+
+    return rec(i+1,sum) || rec(i+1,sum+V[i]) || rec(i+1,sum-V[i]) ||  rec(i+1,sum*V[i]);
+}
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    int x,i;
+    while(1) {
+        V.clear();
+        FOR(i,0,5) {
+            SFI(x);
+            V.push_back(x);
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        if(count(BE(V),0)==V.size()) break;
+        if(rec(0,0)) cout<<"Possible\n";
+        else cout<<"Impossible\n";
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

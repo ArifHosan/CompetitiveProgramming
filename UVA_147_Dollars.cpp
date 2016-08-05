@@ -41,32 +41,40 @@ void primeSieve() {
 }
 */
 
+int coin[]={5,10,20,50,100,200,500,1000,2000,5000,10000};
+long long int dp[11][30005];
+long long int rec(int i,int make) {
+    if(make==0) return 1;
+    if(i>10) return 0;
+    if(dp[i][make]!=-1) return dp[i][make];
+
+    long long int r1=0,r2=0;
+    if(make-coin[i]>=0) r1=rec(i,make-coin[i]);
+    r2=rec(i+1,make);
+    return dp[i][make]=r1+r2;
+}
+
 int main() {
     //RW;
-    int T,i,j,g_i=0;
+    MEM(dp,-1);
+    int N;
     string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
+    while(cin>>S && S!="0.00") {
+        N=0;
+        int i;
         FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+            if(S[i]>=48 && S[i]<=57) {
+                N*=10;
+                N+=(S[i]-48);
+            }
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        //cout<<N<<endl;
+        long long int M=rec(0,N);
+       //cout<<M<<endl;
+        cout<<setw(6)<<S;
+        cout.width(17);
+        cout<<right<<M<<endl;
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }
+

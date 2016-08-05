@@ -40,33 +40,18 @@ void primeSieve() {
     }
 }
 */
+int t;
+vector<int>V;
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    while(SFI(t)==1) {
+        int i,j,x,N;
+        SFI(N);
+        FOR(i,0,N) {
+            SFI(x);
+            V.push_back(x);
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
 
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

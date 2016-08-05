@@ -10,7 +10,7 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
@@ -40,33 +40,45 @@ void primeSieve() {
     }
 }
 */
+long long bill(long long t) {
+    long long res=0;
+    if(t<=100) {
+        return res*2;
+    }
+    else if(t<=10000) {
+        res=100*2;
+        t-=100;
+        res+=(t*3);
+        return res;
+    }
+    else if(t<=1000000) {
+        res=(100*2)+(9900*3);
+        t-=10000;
+        res+=(t*5);
+        return res;
+    }
+    else  {
+        res=(100*2)+(9900*3)+(990000*5);
+        t-=1000000;
+        res+=(t*7);
+        return res;
+    }
+}
+
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    int A,B,mid;
+    while(SFII(A,B)==2 && A &&B){
+        int hi=1e9,lo=0;
+        while(lo<=hi) {
+            mid=(hi+lo)/2;
+            cout<<mid<<' '<<bill(mid+mid-B)<<endl;
+            if(bill(mid+mid-B)==A) break;
+            else if(bill(mid+mid-B)>A) hi=mid-1;
+            else lo=mid+1;
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        cout<<mid<<endl;
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

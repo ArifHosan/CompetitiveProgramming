@@ -28,6 +28,7 @@ int caseno=1;
 #define MEM(_c,_v) memset(_c,_v,sizeof(_c))
 #define FOR(i,a,b) for(i=(a);i<(b);i++)
 #define REV(i,a,b) for(i=(a);i>=(b);i--)
+#define EPS 1e-4
 using namespace std;
 
 /*bool P[SIZE];
@@ -40,33 +41,29 @@ void primeSieve() {
     }
 }
 */
+int co=0;
+int p,q,r,s,t,u;
+double valueOf(double x) {
+    double res=p*exp(-x)+q*sin(x)+r*cos(x)+s*tan(x)+t*x*x+u;
+    return res;
+}
+
+double BS(int h,int l) {
+    double mid=(h+l)/2.0;
+    if(co==32) return mid;
+    double x=valueOf(mid);
+    if(abs(x)<=EPS) return x;
+    else if(x>0) h=mid;
+    else l=mid;
+    co++;
+    return BS(h,l);
+}
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+    while(SFI(p)==1){
+        scanf("%d%d%d%d%d", &q,&r,&s,&t,&u);
+        cout<<BS(0,1);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
+
 	return 0;
 }

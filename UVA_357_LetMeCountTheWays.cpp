@@ -40,33 +40,28 @@ void primeSieve() {
     }
 }
 */
+int coin[]={1,5,10,25,50};
+long long int dp[5][30005];
+int N;
+long long int rec(int i,int make) {
+    if(make==0) return 1;
+    if(i>4) return 0;
+    if(dp[i][make]!=-1) return dp[i][make];
+
+    long long int r1=0,r2=0;
+    if(make-coin[i]>=0) r1=rec(i,make-coin[i]);
+    r2=rec(i+1,make);
+    return dp[i][make]=r1+r2;
+}
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+    MEM(dp,-1);
+    while(SFI(N)==1) {
+        long long int M=rec(0,N);
+        if(M==1) printf("There is only 1 way to produce %d cents change.\n",N);
+        else if(M>1) printf("There are %lld ways to produce %d cents change.\n",M,N);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }
+

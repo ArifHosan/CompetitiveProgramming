@@ -40,33 +40,36 @@ void primeSieve() {
     }
 }
 */
-
+map<char,int>M;
+int k;
+void Permute(string s) {
+    //if(i==k) return;
+    if(s.size()==k) {
+        cout<<s<<endl;
+        return;
+    }
+    map<char,int>::iterator it;
+    for(it=M.begin();it!=M.end();it++) {
+        if(it->second>0 && it->first>=s[s.size()-1]) {
+            M[it->first]--;
+            Permute(s+it->first);
+            M[it->first]++;
+        }
+    }
+}
 int main() {
     //RW;
-    int T,i,j,g_i=0;
     string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
+    int i,j;
+    while(cin>>S) {
+        M.clear();
+        SFI(k);
         FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+            M[S[i]]++;
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        S.clear();
+        Permute(S);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
+
 	return 0;
 }

@@ -10,7 +10,7 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
@@ -40,33 +40,34 @@ void primeSieve() {
     }
 }
 */
-
+int r,c;
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    while(SFII(r,c)==2 &&r &&c) {
+        string S[101];
+        int i,j,co=0;;
+        FOR(i,0,r) cin>>S[i];
+        FOR(i,0,r) {
+            FOR(j,0,c) {
+                if(S[i][j]=='*') {
+                    if(i>0) {
+                        if(j>0 && S[i-1][j-1]=='*') continue;
+                        if(S[i-1][j]=='*') continue;
+                        if(j+1<c && S[i-1][j+1]=='*') continue;
+                    }
+                    if(j>0 && S[i][j-1]=='*') continue;
+                    //if(S[i][j]=='*') continue;
+                    if(j+1<c && S[i][j+1]=='*') continue;
+                    if(i+1<r) {
+                        if(j>0 && S[i+1][j-1]=='*') continue;
+                        if(S[i+1][j]=='*') continue;
+                        if(j+1<c && S[i+1][j+1]=='*') continue;
+                    }
+                    co++;
+                }
+            }
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        cout<<co<<endl;
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

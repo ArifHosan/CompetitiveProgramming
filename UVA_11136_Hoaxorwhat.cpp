@@ -2,7 +2,6 @@
 *
 *			Arif Hosan
 *American International University Bangladesh
-*		hosan.arif0@gmail.com
 *
 **/
 #include<bits/stdc++.h>
@@ -10,16 +9,16 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
 #define SFI(_i) scanf("%d",&_i)
-
+#define SFII(_i,_ii) scanf("d",&_i,&_ii)
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
+#define PFLL(_i) printf("%lld\n",_i)
 #define PFI(_i) printf("%d",_i)
 #define NL printf("\n")
 #define SPC printf(" ")
@@ -43,30 +42,26 @@ void primeSieve() {
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+    int i,j,k,n,x;
+    while(SFI(n)==1 && n) {
+        long long c=0;
+        multiset<int>m;
+        multiset<int>::iterator it;
+        FOR(i,0,n) {
+            SFI(k);
+            FOR(j,0,k) {
+                SFI(x);
+                m.insert(x);
+            }
+            it=m.end(); it--;
+            int d=*it;
+            m.erase(it);
+            it=m.begin();
+            d-=*it;
+            m.erase(it);
+            c+=d;
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        PFLL(c);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }

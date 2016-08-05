@@ -10,13 +10,12 @@
 #define SIZE 1000000
 #define endl '\n'
 int caseno=1;
-#define SFII(_i,_ii) scanf("d",&_i,&_ii)
+#define SFII(_i,_ii) scanf("%d%d",&_i,&_ii)
 #define CP() printf("Case %d: ",caseno++)
 #define R() freopen("in.txt","r",stdin)
 #define W() freopen("out.txt","w",stdout)
 #define RW R(); W()
 #define SFI(_i) scanf("%d",&_i)
-
 #define SFD(_i) scanf("%lf",&_i)
 #define SFC(_c) scanf("%c",&_c)
 #define PFIL(_i) printf("%d\n",_i)
@@ -40,33 +39,52 @@ void primeSieve() {
     }
 }
 */
+int base;
+bool A[10];
+bool isDiv(string s) {
+    int rem=0,i;
+    FOR(i,0,s.size()) {
+        rem*=base;
+        rem+=s[i]-48;
+        rem=rem%s.size();
+    }
+    return rem==0;
+}
+
+string fn="";
+int fl=0;
+
+void rec(string s) {
+    if(fl<s.size()) {
+        fn=s;
+        fl=s.size();
+    }
+    int i,j;
+    REV(i,base-1,0) {
+        if(A[i] && isDiv(s+(char)(i+48))) {
+            if(s.size()==0 && i==0) continue;
+            //cout<<i<< ' '<<isDiv(s+(char)(i+48))<<endl;
+            rec(s+(char)(i+48));
+        }
+    }
+}
 
 int main() {
-    //RW;
-    int T,i,j,g_i=0;
     string S;
-    map<string,int>M;
-    map<string,int>G;
-    SFI(T);
-    cin.ignore();
-    while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
+    int i;
+    while(SFI(base)==1) {
+        cin>>S;
         FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
+            A[S[i]-48]=1;
         }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        S.clear();
+        //cout<<S.size()<<endl;
+        rec(S);
+        cout<<fn<<endl;
+        fn.clear();
+        fl=0;
+        fill(A,A+10,0);
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
+
 	return 0;
 }

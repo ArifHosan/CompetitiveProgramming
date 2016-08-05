@@ -40,33 +40,26 @@ void primeSieve() {
     }
 }
 */
+int N,H;
+void Rec(string s) {
+    if(s.size()==N) {
+        int xx=std::count(s.begin(),s.end(),'1');
+        if(xx==H)
+            cout<<s<<endl;
+        return;
+    }
+    Rec(s+"0");
+    Rec(s+"1");
+}
 
 int main() {
     //RW;
-    int T,i,j,g_i=0;
-    string S;
-    map<string,int>M;
-    map<string,int>G;
+    int i,j,T;
     SFI(T);
-    cin.ignore();
     while(T--) {
-        getline(cin,S);
-        string T;
-        while(S[0]==' ')S.erase(S.begin());
-        FOR(i,0,S.size()) {
-            if(S[i]==' ') break;
-            T.push_back(S[i]);
-        }
-        //M[T]=0;
-        S.erase(S.begin(),S.begin()+i+1);
-        //cout<<S<<endl;
-        if(G.count(S)==0) {
-            G[S]=1;
-            M[T]++;
-        }
-        T.clear();
-
+        SFI(N); SFI(H);
+        Rec("");
+        if(T) NL;
     }
-    for(auto it:M) cout<<it.first<<' '<<it.second<<endl;
 	return 0;
 }
